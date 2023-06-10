@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tweetapp/view/home_screen/widget/alert.dart';
+import 'package:tweetapp/view/home_screen/widget/edit_tweet.dart';
 import 'package:tweetapp/view/utils/utils.dart';
 
-Future<dynamic> optionList({context, index, refresh, deleteTweet}) {
+Future<dynamic> optionList({context, index, deleteTweet, data}) {
   return showModalBottomSheet(
       backgroundColor: grey2,
       isScrollControlled: true,
@@ -17,12 +18,16 @@ Future<dynamic> optionList({context, index, refresh, deleteTweet}) {
           height: MediaQuery.of(context).size.height / 5,
           child: Column(
             children: [
-              buildItem(context: context, title: 'Edit', option: 1),
+              buildItem(
+                context: context,
+                title: 'Edit',
+                data: data,
+                option: 1,
+              ),
               buildItem(
                 context: context,
                 title: 'Delete',
                 index: index,
-                refresh: refresh,
                 deleteTweet: deleteTweet,
                 option: 2,
               ),
@@ -33,7 +38,7 @@ Future<dynamic> optionList({context, index, refresh, deleteTweet}) {
       });
 }
 
-Widget buildItem({context, title, option, index, refresh, deleteTweet}) {
+Widget buildItem({context, title, option, index, deleteTweet, data}) {
   return InkWell(
     child: ListTile(
       title: Center(
@@ -48,12 +53,16 @@ Widget buildItem({context, title, option, index, refresh, deleteTweet}) {
     ),
     onTap: () {
       if (option == 1) {
+        editTweet(
+          context: context,
+          index: index,
+          data: data,
+        );
       } else if (option == 2) {
         alertBox(
           context: context,
           delete: true,
           index: index,
-          refresh: refresh,
           deleteFun: deleteTweet,
         );
       } else {

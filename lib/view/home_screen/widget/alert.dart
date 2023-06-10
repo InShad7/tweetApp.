@@ -2,13 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tweetapp/view/utils/utils.dart';
 
-void alertBox({
-  context,
-  delete = false,
-  index,
-  deleteFun,
-  refresh,
-}) {
+void alertBox({context, delete = false, index, deleteFun}) {
   showModalBottomSheet(
     backgroundColor: grey2,
     isScrollControlled: true,
@@ -17,7 +11,6 @@ void alertBox({
         top: Radius.circular(18),
       ),
     ),
-
     context: context,
     builder: (context) => Column(
       mainAxisSize: MainAxisSize.min,
@@ -43,7 +36,6 @@ void alertBox({
             ),
           ),
         ),
-        // kHeight,
         const Divider(indent: 60, endIndent: 60),
         SizedBox(
           height: 65,
@@ -62,7 +54,5 @@ void alertBox({
         kHeight,
       ],
     ),
-
-    // ),
   );
 }
