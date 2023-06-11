@@ -3,7 +3,7 @@ import 'package:tweetapp/view/home_screen/widget/alert.dart';
 import 'package:tweetapp/view/home_screen/widget/edit_tweet.dart';
 import 'package:tweetapp/view/utils/utils.dart';
 
-Future<dynamic> optionList({context, index, deleteTweet, data}) {
+Future<dynamic> optionList({context, index, data}) {
   return showModalBottomSheet(
       backgroundColor: grey2,
       isScrollControlled: true,
@@ -28,7 +28,6 @@ Future<dynamic> optionList({context, index, deleteTweet, data}) {
                 context: context,
                 title: 'Delete',
                 index: index,
-                deleteTweet: deleteTweet,
                 option: 2,
               ),
               buildItem(context: context, title: 'Cancel', option: 3),
@@ -38,7 +37,7 @@ Future<dynamic> optionList({context, index, deleteTweet, data}) {
       });
 }
 
-Widget buildItem({context, title, option, index, deleteTweet, data}) {
+Widget buildItem({context, title, option, index, data}) {
   return InkWell(
     child: ListTile(
       title: Center(
@@ -63,7 +62,7 @@ Widget buildItem({context, title, option, index, deleteTweet, data}) {
           context: context,
           delete: true,
           index: index,
-          deleteFun: deleteTweet,
+         
         );
       } else {
         Navigator.pop(context);

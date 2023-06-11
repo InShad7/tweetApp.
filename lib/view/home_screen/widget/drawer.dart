@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tweetapp/controller/controller.dart';
 import 'package:tweetapp/view/home_screen/widget/alert.dart';
 import 'package:tweetapp/view/utils/utils.dart';
 
@@ -31,7 +31,7 @@ class NavigationDrawers extends StatelessWidget {
             ),
             kHeight,
             Text(
-              user.displayName!,
+              FirebaseAuth.instance.currentUser!.displayName.toString(),
               style: TextStyle(fontSize: 20, color: white),
             ),
           ],

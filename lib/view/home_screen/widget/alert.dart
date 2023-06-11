@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tweetapp/controller/provider/tweet_provider.dart';
 import 'package:tweetapp/view/utils/utils.dart';
 
-void alertBox({context, delete = false, index, deleteFun}) {
+void alertBox({context, delete = false, index,}) {
   showModalBottomSheet(
     backgroundColor: grey2,
     isScrollControlled: true,
@@ -18,11 +20,12 @@ void alertBox({context, delete = false, index, deleteFun}) {
         kHeight,
         SizedBox(
           width: 400,
-          height: 65,
+          height: 70,
           child: TextButton(
             onPressed: () async {
               if (delete == true) {
-                deleteFun(index);
+                Provider.of<TweetProvider>(context, listen: false)
+                    .deleteTweet(index);
                 Navigator.pop(context);
                 Navigator.pop(context);
               } else {

@@ -4,13 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 import 'package:tweetapp/controller/controller.dart';
-import 'package:tweetapp/controller/provider/get_data.dart';
 import 'package:tweetapp/model/model.dart';
 import 'package:tweetapp/view/utils/utils.dart';
 
 class TweetProvider extends ChangeNotifier {
+  
   TextEditingController tweetController = TextEditingController();
 
   Stream<List<DocumentSnapshot>> getData() async* {
@@ -24,8 +23,6 @@ class TweetProvider extends ChangeNotifier {
         final data = ref.data()!['tweet'];
 
         myContents = data ?? ['no data'];
-        // myContents.reversed;
-        // log('get data:::::::::${myContents}');
 
         if (myContents.length > 1 && myContents[0] == 'no data') {
           myContents.removeAt(0);
@@ -58,6 +55,7 @@ class TweetProvider extends ChangeNotifier {
     Fluttertoast.showToast(
       msg: 'Tweeted ',
       backgroundColor: blue,
+      gravity: ToastGravity.BOTTOM,
     );
 
     Navigator.pop(context);
@@ -76,6 +74,7 @@ class TweetProvider extends ChangeNotifier {
     Fluttertoast.showToast(
       msg: 'Tweet edited',
       backgroundColor: blue,
+      gravity: ToastGravity.BOTTOM,
     );
 
     Navigator.pop(context, 'refresh');
@@ -90,6 +89,7 @@ class TweetProvider extends ChangeNotifier {
     Fluttertoast.showToast(
       msg: 'deleted',
       backgroundColor: deleteRed,
+      gravity: ToastGravity.BOTTOM,
     );
 
     Tweet obj = Tweet(tweet: myContents);

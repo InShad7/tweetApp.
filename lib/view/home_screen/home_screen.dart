@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +5,7 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:tweetapp/controller/controller.dart';
 import 'package:tweetapp/controller/provider/tweet_provider.dart';
+import 'package:tweetapp/view/home_screen/widget/custom_app_bar.dart';
 import 'package:tweetapp/view/home_screen/widget/drawer.dart';
 import 'package:tweetapp/view/home_screen/widget/add_tweet.dart';
 import 'package:tweetapp/view/home_screen/widget/tweet_tile.dart';
@@ -19,22 +19,9 @@ class HomeScreen extends StatelessWidget {
     final tweetProvider = Provider.of<TweetProvider>(context);
     return Scaffold(
       backgroundColor:
-          (myContents.isEmpty || myContents[0] == 'no data') ? white : null,
+          (myContents.isEmpty || myContents[0] == 'no data') ? white : white1,
       key: homeKey,
-      appBar: AppBar(
-        backgroundColor: white,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            homeKey.currentState!.openDrawer();
-          },
-          icon: Icon(Icons.person, color: blue),
-        ),
-        title: Image.asset(
-          'assets/twitter_logo.jpg',
-          scale: 20,
-        ),
-      ),
+      appBar: const CustomAppBar(),
       drawer: const NavigationDrawers(),
       body: StreamBuilder<List<DocumentSnapshot>>(
         stream: tweetProvider.getData(),
@@ -53,10 +40,7 @@ class HomeScreen extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            myContents.sort((a, b) {
-              return b['date'].compareTo(a['date']);
-            });
-            updateFirebase();
+            sortByTime();
             return Consumer<TweetProvider>(builder: (context, value, child) {
               return (myContents.isEmpty || myContents[0] == 'no data')
                   ? Center(child: Image.asset('assets/nodata.jpg'))
@@ -72,7 +56,6 @@ class HomeScreen extends StatelessWidget {
                           tweet: tweet,
                           index: index,
                           formattedDate: formattedDate,
-                          deleteTweet: value.deleteTweet,
                         );
                       },
                     );
@@ -84,7 +67,7 @@ class HomeScreen extends StatelessWidget {
           }
         },
       ),
-      floatingActionButton: AddTweet(),
+      floatingActionButton: const AddTweet(),
     );
   }
 }

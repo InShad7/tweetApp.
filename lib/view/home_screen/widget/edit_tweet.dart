@@ -3,9 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:tweetapp/controller/provider/tweet_provider.dart';
 import 'package:tweetapp/view/utils/utils.dart';
 
-Future editTweet({context, index, data, refresh, add = false}) async {
+Future editTweet({context, index, data, add = false}) async {
   if (add) {
     Provider.of<TweetProvider>(context, listen: false).clearTweetController();
+  }
+  if (add == false) {
+    Provider.of<TweetProvider>(context, listen: false).tweetController.text =
+        data['content'];
   }
   showModalBottomSheet(
     isScrollControlled: true,
@@ -13,9 +17,6 @@ Future editTweet({context, index, data, refresh, add = false}) async {
     builder: (context) {
       return Consumer<TweetProvider>(
         builder: (BuildContext context, tweetModel, _) {
-          if (add == false) {
-            tweetModel.tweetController.text = data['content'];
-          }
           return Container(
             padding: const EdgeInsets.all(16),
             color: white,
@@ -50,12 +51,6 @@ Future editTweet({context, index, data, refresh, add = false}) async {
                         add
                             ? tweetModel.addTweet(context)
                             : tweetModel.editTweet(context, data);
-                        // ? addTweetFun(context, refresh)
-                        // : editTweetFun(
-                        //     tweetModel.tweetController.text,
-                        //     context,
-                        //     refresh,
-                        //   );
                       },
                       child: const Text(
                         'Tweet',
@@ -65,27 +60,22 @@ Future editTweet({context, index, data, refresh, add = false}) async {
                   ],
                 ),
                 SizedBox(
-                  child: LayoutBuilder(
-                    builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      return TextFormField(
-                        autofocus: true,
-                        cursorColor: Colors.black,
-                        controller: tweetModel.tweetController,
-                        maxLines: null,
-                        maxLength: 280,
-                        textAlignVertical: TextAlignVertical.center,
-                        onChanged: (value) {},
-                        decoration: InputDecoration(
-                          hintText: 'What\'s happening?',
-                          hintStyle: TextStyle(color: grey, fontSize: 18),
-                          filled: true,
-                          fillColor: Colors.transparent,
-                          border: InputBorder.none,
-                        ),
-                        style: TextStyle(color: black, fontSize: 18),
-                      );
-                    },
+                  child: TextFormField(
+                    autofocus: true,
+                    cursorColor: Colors.black,
+                    controller: tweetModel.tweetController,
+                    maxLines: null,
+                    maxLength: 280,
+                    textAlignVertical: TextAlignVertical.center,
+                    onChanged: (value) {},
+                    decoration: InputDecoration(
+                      hintText: 'What\'s happening?',
+                      hintStyle: TextStyle(color: grey, fontSize: 18),
+                      filled: true,
+                      fillColor: Colors.transparent,
+                      border: InputBorder.none,
+                    ),
+                    style: TextStyle(color: black, fontSize: 18),
                   ),
                 )
               ],

@@ -42,6 +42,5 @@ class Content {
     }
 
     myContents.add(data());
-    log(myContents.toString());
   }
 }

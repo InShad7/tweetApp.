@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tweetapp/view/utils/utils.dart';
 
-
-
-class MyTextField extends StatefulWidget {
-  String title;
-  var myControler;
-  IconData? icon;
-  bool passChar;
-  double ht;
-  double border;
+class MyTextField extends StatelessWidget {
   MyTextField(
       {super.key,
       required this.title,
@@ -18,12 +10,13 @@ class MyTextField extends StatefulWidget {
       required this.passChar,
       required this.ht,
       required this.border});
+      String title;
+  var myControler;
+  IconData? icon;
+  bool passChar;
+  double ht;
+  double border;
 
-  @override
-  State<MyTextField> createState() => _MyTextFieldState();
-}
-
-class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,25 +25,24 @@ class _MyTextFieldState extends State<MyTextField> {
         children: [
           Container(
             padding: const EdgeInsets.only(left: 12),
-            height: widget.ht,
+            height: ht,
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(widget.border),
+              borderRadius: BorderRadius.circular(border),
               color: white,
             ),
             child: Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextFormField(
-                obscureText: widget.passChar,
-                controller: widget.myControler,
+                obscureText: passChar,
+                controller: myControler,
                 cursorColor: blue,
                 style: TextStyle(color: black),
-
                 decoration: InputDecoration(
-                  prefixIcon: Icon(widget.icon, size: 28, color: blue),
+                  prefixIcon: Icon(icon, size: 28, color: blue),
                   border: const OutlineInputBorder(borderSide: BorderSide.none),
                   contentPadding: const EdgeInsets.all(5),
-                  hintText: widget.title,
+                  hintText: title,
                   hintStyle: const TextStyle(fontSize: 22),
                 ),
               ),

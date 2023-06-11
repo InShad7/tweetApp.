@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:tweetapp/view/home_screen/widget/option_list.dart';
 import 'package:tweetapp/view/utils/utils.dart';
 
 class TweetItemTile extends StatelessWidget {
-  const TweetItemTile(
-      {super.key,
-      this.tweet,
-      this.index,
-      this.formattedDate,
-      this.deleteTweet,
-      });
+  const TweetItemTile({super.key, this.tweet, this.index, this.formattedDate});
   final tweet;
   final index;
   final formattedDate;
-  final deleteTweet;
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +37,10 @@ class TweetItemTile extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     optionList(
-                        context: context,
-                        index: index,
-                        deleteTweet: deleteTweet,
-                       
-                        data: tweet);
+                      context: context,
+                      index: index,
+                      data: tweet,
+                    );
                   },
                   icon: Icon(
                     Icons.more_vert,

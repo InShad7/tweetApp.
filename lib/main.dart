@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tweetapp/controller/provider/get_data.dart';
 import 'package:tweetapp/controller/provider/tweet_provider.dart';
 import 'package:tweetapp/view/splash_screen.dart/spalsh_screen.dart';
 
@@ -23,9 +22,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => TweetProvider(),
         ),
-        // ChangeNotifierProvider(
-        //   create: (context) => GetTweetDataProvider(),
-        // )
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
