@@ -9,7 +9,6 @@ import 'package:tweetapp/model/model.dart';
 import 'package:tweetapp/view/utils/utils.dart';
 
 class TweetProvider extends ChangeNotifier {
-  
   TextEditingController tweetController = TextEditingController();
 
   Stream<List<DocumentSnapshot>> getData() async* {
@@ -43,44 +42,60 @@ class TweetProvider extends ChangeNotifier {
   }
 
   void addTweet(BuildContext context) {
-    Content obj1 = Content(
-      content: tweetController.text,
-      date: DateTime.now(),
-    );
-    obj1.addTweets();
+    if (tweetController.text.isNotEmpty) {
+      Content obj1 = Content(
+        content: tweetController.text,
+        date: DateTime.now(),
+      );
+      obj1.addTweets();
 
-    Tweet obj = Tweet(tweet: myContents);
-    obj.addToFirebase();
+      Tweet obj = Tweet(tweet: myContents);
+      obj.addToFirebase();
 
-    Fluttertoast.showToast(
-      msg: 'Tweeted ',
-      backgroundColor: blue,
-      gravity: ToastGravity.BOTTOM,
-    );
+      Fluttertoast.showToast(
+        msg: 'Tweeted ',
+        backgroundColor: blue,
+        gravity: ToastGravity.BOTTOM,
+      );
 
-    Navigator.pop(context);
-    clearTweetController();
-    getData();
+      Navigator.pop(context);
+      clearTweetController();
+      getData();
+    } else {
+      Fluttertoast.showToast(
+        msg: 'tweet cant be blank ',
+        backgroundColor: deleteRed,
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
     // notifyListeners();
   }
 
   void editTweet(BuildContext context, data) {
-    data['content'] = tweetController.text;
-    data['date'] = data['date'];
+    if (tweetController.text.isNotEmpty) {
+      data['content'] = tweetController.text;
+      data['date'] = data['date'];
 
-    Tweet obj = Tweet(tweet: myContents);
-    obj.addToFirebase();
+      Tweet obj = Tweet(tweet: myContents);
+      obj.addToFirebase();
 
-    Fluttertoast.showToast(
-      msg: 'Tweet edited',
-      backgroundColor: blue,
-      gravity: ToastGravity.BOTTOM,
-    );
+      Fluttertoast.showToast(
+        msg: 'Tweet edited',
+        backgroundColor: blue,
+        gravity: ToastGravity.BOTTOM,
+      );
 
-    Navigator.pop(context, 'refresh');
-    Navigator.pop(context);
-    clearTweetController();
-    getData();
+      Navigator.pop(context, 'refresh');
+      Navigator.pop(context);
+      clearTweetController();
+      getData();
+    } else {
+      Fluttertoast.showToast(
+        msg: 'tweet cant be blank ',
+        backgroundColor: deleteRed,
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
   }
 
   void deleteTweet(int index) {
